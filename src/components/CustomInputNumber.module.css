@@ -1,0 +1,6 @@
+.container{
+  @apply w-48;
+  @apply h-48;
+  @apply border;
+  @apply rounded-md;
+}

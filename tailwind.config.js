@@ -1,7 +1,18 @@
 module.exports = {
-  content: ["./src/**/*.jsx"],
+  content: [
+    "./src/**/*.jsx",
+    "./src/**/*.css",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '48': '48px',
+        '500': '500px',
+      },
+      height: {
+        '48': '48px',
+      }
+    },
   },
   plugins: [],
 }

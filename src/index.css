@@ -1,3 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './style/_base.css';
+@import './style/_input.css';

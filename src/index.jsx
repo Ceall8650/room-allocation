@@ -1,5 +1,6 @@
 import { render } from "react-dom";
-import RoomAllocation from "./RoomAllocation";
+import RoomAllocation from "./views/RoomAllocation";
+import App from "./App";
 import "./index.css";
 
-render(<RoomAllocation />, document.getElementById("app"));
+render(<App />, document.getElementById("app"));

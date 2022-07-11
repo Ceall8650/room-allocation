@@ -13,6 +13,7 @@ module.exports = {
 		'no-debugger': 'off', // enable using debugger in dev mode but got err in production
 		"react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+		"react/prop-types": "off"
 	},
 	plugins: [
 		"react-hooks",

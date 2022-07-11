@@ -13,7 +13,9 @@ module.exports = {
   }, 
   resolve: {
     extensions: ['.js', '.jsx'],
-    alias: {}
+    alias: {
+      components: path.resolve(__dirname, 'src/components')
+    }
   },
   module: {
     rules: [
@@ -48,6 +50,7 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
+  devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'index.html')
