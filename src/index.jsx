@@ -1,10 +1,5 @@
-import React from 'react';
-import { render } from 'react-dom';
-import Hello from './Hello';
-import './index.css';
+import { render } from "react-dom";
+import App from "./App";
+import "./App.css";
 
-function main() {
-  render(<Hello />, document.getElementById('app'));
-}
-
-main();
+render(<App />, document.getElementById("app"));
