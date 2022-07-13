@@ -4,8 +4,10 @@
   "description": "Simple room allocation UI",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
     "start": "webpack serve --mode=development",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "gh-pages -d public"
   },
   "repository": {
     "type": "git",
@@ -16,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/Ceall8650/room-allocation/issues"
   },
-  "homepage": "https://github.com/Ceall8650/room-allocation#readme",
+  "homepage": "https://Ceall8650.github.io/room-allocation",
   "dependencies": {
     "mini-css-extract-plugin": "^2.6.1",
     "react": "^17.0.2",
@@ -35,6 +37,7 @@
     "eslint": "^8.19.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.4.14",
     "postcss-loader": "^7.0.0",

@@ -50,7 +50,7 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
-  devtool: 'source-map',
+  devtool: process.env.NODE_ENV === 'development' ? 'source-map' : false,
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'index.html')
