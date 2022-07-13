@@ -42,7 +42,7 @@ function GuestRoom({
           <span className='text-gray-400 text-xs'>年齡 20+</span>
         </div>
         <CustomInputNumber
-          name="CustomInputNumber"
+          name="adultInput"
           min={1}
           max={10}
           disabled={!enabledInputNumber}
@@ -54,7 +54,7 @@ function GuestRoom({
       <div className='flex justify-between'>
         <span className='text-sm'>小孩</span>
         <CustomInputNumber
-          name="CustomInputNumber"
+          name="childInput"
           min={0}
           max={10}
           disabled={!enabledInputNumber}
