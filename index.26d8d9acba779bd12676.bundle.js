@@ -617,7 +617,7 @@ function CustomInputNumberButton(_ref) {
 
 /* harmony default export */ const components_CustomInputNumberButton = (CustomInputNumberButton);
 ;// CONCATENATED MODULE: ./src/components/CustomInputNumber.jsx
-var CustomInputNumber_excluded = ["min", "max", "disabled", "enabledPlus", "enabledMinus", "name", "step", "value", "onChange", "onBlur"];
+var CustomInputNumber_excluded = ["min", "max", "disabled", "enabledPlus", "name", "step", "value", "onChange", "onBlur"];
 
 function CustomInputNumber_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -656,8 +656,6 @@ function CustomInputNumber(_ref) {
       disabled = _ref$disabled === void 0 ? false : _ref$disabled,
       _ref$enabledPlus = _ref.enabledPlus,
       enabledPlus = _ref$enabledPlus === void 0 ? true : _ref$enabledPlus,
-      _ref$enabledMinus = _ref.enabledMinus,
-      enabledMinus = _ref$enabledMinus === void 0 ? true : _ref$enabledMinus,
       _ref$name = _ref.name,
       name = _ref$name === void 0 ? "" : _ref$name,
       _ref$step = _ref.step,
@@ -698,13 +696,7 @@ function CustomInputNumber(_ref) {
 
   function increaseNumber() {
     setInnerValue(function (prev) {
-      var value = prev + step > max ? max : prev + step;
-
-      if (value === max || !enabledPlus) {
-        handleIncrementTimerClear();
-      }
-
-      return value;
+      return prev + step > max ? max : prev + step;
     });
   }
 
@@ -721,13 +713,7 @@ function CustomInputNumber(_ref) {
 
   function decreaseNumber() {
     setInnerValue(function (prev) {
-      var value = prev - step < min ? min : prev - step;
-
-      if (value === min || !enabledMinus) {
-        handleDecrementTimerClear();
-      }
-
-      return value;
+      return prev - step < min ? min : prev - step;
     });
   }
 
@@ -766,9 +752,16 @@ function CustomInputNumber(_ref) {
   (0,react.useEffect)(function () {
     if (typeof onChange === "function") {
       event.target.value = innerValue;
+
+      if (innerValue === min) {
+        handleDecrementTimerClear();
+      } else if (innerValue === max) {
+        handleIncrementTimerClear();
+      }
+
       onChange(event);
     }
-  }, [event, innerValue, onChange]);
+  }, [event, innerValue, min, max, onChange]);
   (0,react.useEffect)(function () {
     if (!enabledPlus) {
       handleIncrementTimerClear();
