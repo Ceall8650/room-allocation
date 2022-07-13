@@ -7,7 +7,6 @@ function CustomInputNumber({
 	max = Infinity,
 	disabled = false,
 	enabledPlus = true,
-	enabledMinus = true,
 	name = "",
 	step = 1,
 	value = 0,
@@ -37,15 +36,9 @@ function CustomInputNumber({
 
 	function increaseNumber() {
 		setInnerValue((prev) => {
-			let value = prev + step > max 
+			return prev + step > max 
 				? max 
 				: prev + step;
-
-			if(value === max || !enabledPlus) {
-				handleIncrementTimerClear()
-			}
-
-			return value;
 		});
 	}
 
@@ -60,15 +53,9 @@ function CustomInputNumber({
 
 	function decreaseNumber() {
 		setInnerValue((prev) => {
-			let value = prev - step < min 
+			return prev - step < min 
 				? min 
 				: prev - step;
-
-			if(value === min || !enabledMinus) {
-				handleDecrementTimerClear()
-			}
-
-			return value;
 		});
 	}
 
@@ -107,9 +94,15 @@ function CustomInputNumber({
 		if (typeof onChange === "function") {
 			event.target.value = innerValue;
 
+			if(innerValue === min) {
+				handleDecrementTimerClear()
+			} else if(innerValue === max) {
+				handleIncrementTimerClear()
+			}
+
 			onChange(event);
 		}
-	}, [event, innerValue, onChange]);
+	}, [event, innerValue, min, max, onChange]);
 
 	useEffect(() => {
 		if(!enabledPlus) {
