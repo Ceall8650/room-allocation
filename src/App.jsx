@@ -2,7 +2,7 @@ import RoomAllocation from './views/RoomAllocation';
 
 function App() {
   return (
-    <div className='flex justify-center items-center h-full'>
+    <div className='flex justify-center py-8'>
       <RoomAllocation 
         guest={10}
         room={3}
