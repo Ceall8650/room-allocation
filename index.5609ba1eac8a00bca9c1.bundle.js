@@ -886,7 +886,7 @@ function GuestRoom(_ref) {
           children: "\u5E74\u9F61 20+"
         })]
       }), /*#__PURE__*/(0,jsx_runtime.jsx)(components_CustomInputNumber, {
-        name: "CustomInputNumber",
+        name: "adultInput",
         min: 1,
         max: 10,
         disabled: !enabledInputNumber,
@@ -900,7 +900,7 @@ function GuestRoom(_ref) {
         className: "text-sm",
         children: "\u5C0F\u5B69"
       }), /*#__PURE__*/(0,jsx_runtime.jsx)(components_CustomInputNumber, {
-        name: "CustomInputNumber",
+        name: "childInput",
         min: 0,
         max: 10,
         disabled: !enabledInputNumber,
@@ -1017,7 +1017,7 @@ function RoomAllocation(_ref) {
 
 function App() {
   return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-    className: "flex justify-center items-center h-full",
+    className: "flex justify-center py-8",
     children: /*#__PURE__*/(0,jsx_runtime.jsx)(views_RoomAllocation, {
       guest: 10,
       room: 3,
