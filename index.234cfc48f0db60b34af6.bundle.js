@@ -675,16 +675,6 @@ function CustomInputNumber(_ref) {
       innerValue = _useState2[0],
       setInnerValue = _useState2[1];
 
-  var _useState3 = (0,react.useState)({
-    target: {
-      name: name,
-      value: value
-    }
-  }),
-      _useState4 = _slicedToArray(_useState3, 2),
-      customEvent = _useState4[0],
-      setCustomEvent = _useState4[1];
-
   var event = (0,react.useMemo)(function () {
     return {
       target: {
@@ -826,47 +816,39 @@ function GuestRoom(_ref) {
       className = _ref.className,
       updateRoom = _ref.updateRoom,
       remainingGuestAmount = _ref.remainingGuestAmount;
-
-  var _useState = (0,react.useState)(adult),
-      _useState2 = GuestRoom_slicedToArray(_useState, 2),
-      adultAmount = _useState2[0],
-      setAdultAmount = _useState2[1];
-
-  var _useState3 = (0,react.useState)(child),
-      _useState4 = GuestRoom_slicedToArray(_useState3, 2),
-      childrenAmount = _useState4[0],
-      setChildrenAmount = _useState4[1];
-
-  var _useState5 = (0,react.useState)(0),
-      _useState6 = GuestRoom_slicedToArray(_useState5, 2),
-      roomGuestAmount = _useState6[0],
-      setRoomGuestAmount = _useState6[1];
-
+  var ROOM_MAXIMUM_AMOUNT = 4;
   var enabledInputNumber = (0,react.useMemo)(function () {
     return room < guest;
   }, [room, guest]);
+
+  var _useState = (0,react.useState)(0),
+      _useState2 = GuestRoom_slicedToArray(_useState, 2),
+      roomUserAmount = _useState2[0],
+      setRoomUserAmount = _useState2[1];
+
   var updateAdultAmount = (0,react.useCallback)(function (e) {
-    setAdultAmount(e.target.value);
     updateRoom(index, {
-      adult: adultAmount,
-      child: childrenAmount
+      adult: e.target.value,
+      child: child
     });
-  }, [index, updateRoom, adultAmount, childrenAmount]);
+  }, [index, updateRoom, child]);
   var updateChildrenAmount = (0,react.useCallback)(function (e) {
-    setChildrenAmount(e.target.value);
     updateRoom(index, {
-      adult: adultAmount,
-      child: childrenAmount
+      adult: adult,
+      child: e.target.value
     });
-  }, [index, updateRoom, adultAmount, childrenAmount]);
-  (0,react.useEffect)(function () {
-    setRoomGuestAmount(adultAmount + childrenAmount);
-  }, [adultAmount, childrenAmount]);
+  }, [index, updateRoom, adult]);
+  var adultRoomMaximumAmount = (0,react.useMemo)(function () {
+    return ROOM_MAXIMUM_AMOUNT - child;
+  }, [child]);
+  var childRoomMaximumAmount = (0,react.useMemo)(function () {
+    return ROOM_MAXIMUM_AMOUNT - adult >= 0 ? ROOM_MAXIMUM_AMOUNT - adult : 0;
+  }, [adult]);
   return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
     className: "".concat(className, " flex flex-col"),
     children: [/*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
       className: "".concat(RoomAllocation_module.title, " mb-5"),
-      children: ["\u623F\u9593\uFF1A", roomGuestAmount, "\u4EBA"]
+      children: ["\u623F\u9593\uFF1A", adult + child, "\u4EBA"]
     }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
       className: "flex justify-between mb-4",
       children: [/*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
@@ -881,7 +863,7 @@ function GuestRoom(_ref) {
       }), /*#__PURE__*/(0,jsx_runtime.jsx)(components_CustomInputNumber, {
         name: "adultInput",
         min: 1,
-        max: 10,
+        max: adultRoomMaximumAmount,
         disabled: !enabledInputNumber,
         enabledPlus: remainingGuestAmount > 0,
         onChange: updateAdultAmount,
@@ -895,7 +877,7 @@ function GuestRoom(_ref) {
       }), /*#__PURE__*/(0,jsx_runtime.jsx)(components_CustomInputNumber, {
         name: "childInput",
         min: 0,
-        max: 10,
+        max: childRoomMaximumAmount,
         disabled: !enabledInputNumber,
         enabledPlus: remainingGuestAmount > 0,
         onChange: updateChildrenAmount,
