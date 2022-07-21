@@ -12,30 +12,32 @@ function GuestRoom({
   updateRoom,
   remainingGuestAmount
 }) {
-  const [adultAmount, setAdultAmount] = useState(adult);
-  const [childrenAmount, setChildrenAmount] = useState(child);
-  const [roomGuestAmount, setRoomGuestAmount] = useState(0)
-  const enabledInputNumber = useMemo(() => {
-    return room < guest
-  }, [room, guest])
-
+  const ROOM_MAXIMUM_AMOUNT = 4
+  const enabledInputNumber = useMemo(
+    () => room < guest, 
+    [room, guest]
+  )
+  const [roomUserAmount, setRoomUserAmount] = useState(0)
   const updateAdultAmount = useCallback((e) => {
-    setAdultAmount(e.target.value);
-    updateRoom(index, { adult: adultAmount, child: childrenAmount })
-  }, [index, updateRoom, adultAmount, childrenAmount])
+    updateRoom(index, { adult: e.target.value, child: child })
+  }, [index, updateRoom, child])
 
   const updateChildrenAmount = useCallback((e) => {
-    setChildrenAmount(e.target.value);
-    updateRoom(index, { adult: adultAmount, child: childrenAmount })
-  }, [index, updateRoom, adultAmount, childrenAmount])
+    updateRoom(index, { adult: adult, child: e.target.value })
+  }, [index, updateRoom, adult])
 
-  useEffect(() => {
-    setRoomGuestAmount(adultAmount + childrenAmount)
-  }, [adultAmount, childrenAmount])
+  const adultRoomMaximumAmount = useMemo(
+    () => ROOM_MAXIMUM_AMOUNT - child, 
+    [child]
+  )
+  const childRoomMaximumAmount = useMemo(
+    () => ROOM_MAXIMUM_AMOUNT - adult >= 0 ? ROOM_MAXIMUM_AMOUNT - adult : 0, 
+    [adult]
+  )
 
   return (
     <div className={`${className} flex flex-col`}>
-      <div className={`${styles.title} mb-5`}>房間：{roomGuestAmount}人</div>
+      <div className={`${styles.title} mb-5`}>房間：{adult + child }人</div>
       <div className='flex justify-between mb-4'>
         <div className='flex flex-col'>
           <span className='text-sm'>大人</span>
@@ -44,7 +46,7 @@ function GuestRoom({
         <CustomInputNumber
           name="adultInput"
           min={1}
-          max={10}
+          max={adultRoomMaximumAmount}
           disabled={!enabledInputNumber}
           enabledPlus={ remainingGuestAmount > 0 }
           onChange={updateAdultAmount}
@@ -56,7 +58,7 @@ function GuestRoom({
         <CustomInputNumber
           name="childInput"
           min={0}
-          max={10}
+          max={childRoomMaximumAmount}
           disabled={!enabledInputNumber}
           enabledPlus={ remainingGuestAmount > 0 }
           onChange={updateChildrenAmount}

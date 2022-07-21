@@ -18,12 +18,6 @@ function CustomInputNumber({
 	const numberIncrementIntervalId = useRef(null);
 	const numberDecrementIntervalId = useRef(null);
 	const [innerValue, setInnerValue] = useState(value);
-	const [customEvent, setCustomEvent] = useState({
-		target: {
-			name,
-			value,
-		},
-	});
 	let event = useMemo(
 		() => ({
 			target: {
